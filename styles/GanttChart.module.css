@@ -1,0 +1,5 @@
+.formContainer {
+  padding: 2rem;
+  box-shadow: 1px 3px 3px 3px #e7ebf1;
+  border-radius: var(--border-radius);
+}
