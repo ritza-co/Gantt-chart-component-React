@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import AddTaskDuration from './AddTaskDuration';
 import AddTask from './AddTask';
 import Grid from './Grid';
@@ -7,6 +8,13 @@ import TimeRange from './TimeRange';
 import TimeTable from './TimeTable';
 
 export default function GanttChart() {
+  const [timeRange, setTimeRange] = useState({
+    fromSelectMonth: 0,
+    fromSelectYear: '2022',
+    toSelectYear: 1,
+    fromSelectYear: '2022',
+  });
+
   return (
     <div id="gantt-container">
       <Grid>
@@ -16,7 +24,7 @@ export default function GanttChart() {
       <Settings>
         <AddTask />
         <AddTaskDuration />
-        <TimeRange />
+        <TimeRange timeRange={timeRange} setTimeRange={setTimeRange} />
       </Settings>
       <style jsx>{`
         #gantt-container {
