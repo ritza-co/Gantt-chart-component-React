@@ -3,11 +3,12 @@ import {
   getDaysInMonth,
   getDayOfWeek,
   createFormattedDateFromStr,
-} from '../../utils/dateFunctions';
+  dayDiff,
+} from './dateFunctions';
 import { months } from '../../constants';
 
 export default function TimeTable({ timeRange, tasks, taskDurations }) {
-  // for dynamic css styling.
+  // for dynamic css styling
   const ganttTimePeriod = {
     display: 'grid',
     gridAutoFlow: 'column',
@@ -24,6 +25,18 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
   const ganttTimePeriodCell = {
     position: 'relative',
     outline: '1px solid var(--color-outline)',
+  };
+
+  const taskDuration = {
+    position: 'absolute',
+    height: 'calc(var(--cell-height) / 3',
+    top: 'calc(var(--cell-height) / 3',
+    zIndex: '1',
+    background:
+      'linear-gradient(90deg, var(--color-primary-light) 0%, var(--color-primary-dark) 100%)',
+    borderRadius: '2px',
+    boxShadow: '3px 3px 3px rgba(0, 0, 0, 0.05)',
+    cursor: 'move',
   };
 
   // creating rows
@@ -124,7 +137,22 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
               }}
               data-task={task?.id}
               data-date={formattedDate}
-            ></div>
+              onDrop={onTaskDurationDrop}
+            >
+              {taskDurations.map((el) => {
+                if (el?.id === task?.id && el?.start === formattedDate) {
+                  return (
+                    <div
+                      key={el?.id}
+                      style={{
+                        ...taskDuration,
+                        width: `calc(${dayDiff(el?.start, el?.end)} * 100%)`,
+                      }}
+                    ></div>
+                  );
+                }
+              })}
+            </div>
           );
         }
 
@@ -139,6 +167,13 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
       }
     });
   }
+
+  function onTaskDurationDrop() {
+    console.log('onTaskDurationDrop fn call');
+  }
+
+  console.log({ taskRows });
+  console.log({ taskDurations });
 
   return (
     <div
