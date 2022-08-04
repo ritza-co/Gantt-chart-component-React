@@ -1,8 +1,12 @@
-import { monthDiff, getDaysInMonth } from '../../utils/dateFunctions';
+import {
+  monthDiff,
+  getDaysInMonth,
+  getDayOfWeek,
+} from '../../utils/dateFunctions';
 import { months } from '../../constants';
 
 export default function TimeTable({ timeRange, tasks, taskDurations }) {
-  // dynamic css styling at run time.
+  // for dynamic css styling.
   const ganttTimePeriod = {
     display: 'grid',
     gridAutoFlow: 'column',
@@ -31,6 +35,8 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
   let monthRows = [];
   let dayRows = [];
   let dayRow = [];
+  let weekRows = [];
+  let weekRow = [];
 
   for (let i = 0; i < numMonths; i++) {
     // month rows
@@ -42,8 +48,11 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
       </div>
     );
 
-    // day rows
+    // add day rows and week rows
     const numDays = getDaysInMonth(month.getFullYear(), month.getMonth() + 1);
+    const currYear = month.getFullYear();
+    const currMonth = month.getMonth() + 1;
+
     for (let i = 1; i <= numDays; i++) {
       dayRow.push(
         <div
@@ -60,6 +69,22 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
           <span>{i}</span>
         </div>
       );
+
+      weekRow.push(
+        <div
+          key={i}
+          style={{
+            display: 'grid',
+            gridAutoFlow: 'column',
+            gridAutoColumns: 'minmax(30px, 1fr)',
+            outline: '1px solid var(--color-outline)',
+            textAlign: 'center',
+            height: 'var(--cell-height)',
+          }}
+        >
+          <span>{getDayOfWeek(currYear, currMonth - 1, i - 1)}</span>
+        </div>
+      );
     }
     dayRows.push(
       <div key={i} style={ganttTimePeriod}>
@@ -67,7 +92,14 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
       </div>
     );
 
+    weekRows.push(
+      <div key={i} style={ganttTimePeriod}>
+        {weekRow}
+      </div>
+    );
+
     dayRow = [];
+    weekRow = [];
 
     month.setMonth(month.getMonth() + 1);
   }
@@ -79,6 +111,7 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
     >
       {monthRows}
       {dayRows}
+      {weekRows}
       <style jsx>{`
         #gantt-grid-container__time {
           display: grid;
@@ -95,9 +128,9 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
           height: var(--cell-height);
         } */
 
-        .gantt-time-period span {
+        /* .gantt-time-period span {
           margin: auto;
-        }
+        } */
 
         .gantt-time-period-cell-container {
           grid-column: 1/-1;
