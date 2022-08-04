@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   monthDiff,
   getDaysInMonth,
@@ -7,7 +8,6 @@ import {
   dayDiff,
 } from './dateFunctions';
 import { months } from '../../constants';
-import { useState } from 'react';
 
 export default function TimeTable({
   timeRange,
@@ -16,8 +16,6 @@ export default function TimeTable({
   setTaskDurations,
 }) {
   const [taskDurationElDraggedId, setTaskDurationElDraggedId] = useState(null);
-  const [taskDurationElDraggedTask, setTaskDurationElDraggedTask] =
-    useState(null);
 
   // for dynamic css styling
   const ganttTimePeriod = {

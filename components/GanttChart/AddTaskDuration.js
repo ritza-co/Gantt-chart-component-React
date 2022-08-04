@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function AddTaskDuration({ tasks }) {
+export default function AddTaskDuration({ tasks, setTaskDurations }) {
   const [task, setTask] = useState('');
   const [startDate, setStartDate] = useState('2022-01-01');
   const [endDate, setEndDate] = useState('2022-01-03');
@@ -24,28 +24,20 @@ export default function AddTaskDuration({ tasks }) {
     const task = parseInt(e.target.elements['select-task'].value);
     const start = e.target.elements['start-date'].value;
     const end = e.target.elements['end-date'].value;
-    const startDate = new Date(start);
-    const endDate = new Date(end);
-    console.logg(start, end, task);
-    // const timeStamp = Date.now();
-    // const taskDuration = {
-    //   id: `${timeStamp}`,
-    //   start: startDate,
-    //   end: endDate,
-    //   task: task,
-    // };
+    // const startDate = new Date(start);
+    // const endDate = new Date(end);
+    const timeStamp = Date.now();
+    const newTaskDuration = {
+      id: timeStamp,
+      start,
+      end,
+      task,
+    };
 
-    // // add task duration
-    // taskDurations.push(taskDuration);
-    // // find gantt-time-period-cell start position
-    // const startCell = containerTimePeriods.querySelector(
-    //   `div[data-task="${taskDuration.task}"][data-date="${start}"]`
-    // );
-
-    // if (startCell) {
-    //   // taskDuration bar is a child of start date position of specific task
-    //   createTaskDurationEl(taskDuration, startCell);
-    // }
+    setTaskDurations((prevState) => {
+      const newState = prevState;
+      return [...newState, newTaskDuration];
+    });
   }
 
   return (

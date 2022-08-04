@@ -48,7 +48,7 @@ export default function GanttChart() {
       </Grid>
       <Settings>
         <AddTask setTasks={setTasks} />
-        <AddTaskDuration tasks={tasks} />
+        <AddTaskDuration tasks={tasks} setTaskDurations={setTaskDurations} />
         <TimeRange timeRange={timeRange} setTimeRange={setTimeRange} />
       </Settings>
       <style jsx>{`
