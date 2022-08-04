@@ -9,7 +9,8 @@ import TimeTable from './TimeTable';
 import { client } from '../../utils/fetchWrapper';
 
 export default function GanttChart() {
-  const [data, setData] = useState(null);
+  const [tasks, setTasks] = useState(null);
+  const [taskDurations, setTaskDurations] = useState(null);
   const [timeRange, setTimeRange] = useState({
     fromSelectMonth: 0,
     fromSelectYear: '2022',
@@ -20,7 +21,8 @@ export default function GanttChart() {
   useEffect(() => {
     client('data.json').then(
       (data) => {
-        setData(data);
+        setTasks(data?.tasks);
+        setTaskDurations(data?.taskDurations);
       },
       (error) => {
         console.error('Error: ', error);
@@ -31,12 +33,12 @@ export default function GanttChart() {
   return (
     <div id="gantt-container">
       <Grid>
-        <Tasks />
+        <Tasks tasks={tasks} setTasks={setTasks} />
         <TimeTable />
       </Grid>
       <Settings>
         <AddTask />
-        <AddTaskDuration />
+        <AddTaskDuration tasks={tasks} />
         <TimeRange timeRange={timeRange} setTimeRange={setTimeRange} />
       </Settings>
       <style jsx>{`

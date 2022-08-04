@@ -1,20 +1,40 @@
-export default function Tasks() {
+export default function Tasks({ tasks, setTasks }) {
+  function onChange(e) {
+    const { id, value } = e.target;
+    const idNum = parseInt(id);
+
+    let newTasks = tasks.filter((task) => task.id !== idNum);
+    newTasks.push({ id: idNum, name: value });
+    newTasks = newTasks.sort((a, b) => a.id - b.id);
+    // update original / make API request to update data on backend
+    setTasks(newTasks);
+  }
+
   return (
     <div id="gantt-grid-container__tasks">
-      Tasks
+      <div className="gantt-task-row"></div>
+      <div className="gantt-task-row"></div>
+      <div className="gantt-task-row"></div>
+      {tasks &&
+        tasks.map((tsk) => (
+          <div key={tsk?.id} className="gantt-task-row">
+            <input id={tsk?.id} value={tsk?.name} onChange={onChange} />
+            <button type="button">✕</button>
+          </div>
+        ))}
       <style jsx>{`
         #gantt-grid-container__tasks {
           outline: 1px solid var(--color-outline);
         }
 
         .gantt-task-row {
+          display: flex;
           padding: 2px 0;
           outline: 1px solid var(--color-outline);
           text-align: center;
           height: var(--cell-height);
           /* expand across whole grid */
-          grid-column: 1/-1;
-          width: 100%;
+          /* grid-column: 1/-1; */
           border: none;
         }
 
@@ -28,7 +48,6 @@ export default function Tasks() {
         button {
           color: var(--color-orange);
           background: none;
-          height: calc(var(--cell-height) * 4);
           border-radius: 5px;
           border: none;
           transition: all 0.2s ease;

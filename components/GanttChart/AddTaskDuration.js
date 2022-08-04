@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function AddTaskDuration() {
+export default function AddTaskDuration({ tasks }) {
   const [task, setTask] = useState('');
   const [startDate, setStartDate] = useState('2022-01-01');
   const [endDate, setEndDate] = useState('2022-01-03');
@@ -33,7 +33,14 @@ export default function AddTaskDuration() {
           name="select-task"
           onChange={onChange}
           value={task}
-        ></select>
+        >
+          {tasks &&
+            tasks.map((tsk) => (
+              <option key={tsk?.id} value={tsk?.id}>
+                {tsk?.name}
+              </option>
+            ))}
+        </select>
       </fieldset>
       <fieldset id="date">
         <label htmlFor="start-date">Start date:</label>
