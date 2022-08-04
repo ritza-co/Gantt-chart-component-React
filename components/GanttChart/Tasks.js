@@ -4,8 +4,6 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
   const inputRef = useRef([]);
   const indexRef = useRef(null);
 
-  console.log(inputRef.current, indexRef.current);
-  console.log('Tasks render ', { tasks });
   function onChange(e, i) {
     const { value } = e.target;
     const idNum = parseInt(e.target.getAttribute('data-task-id'));

@@ -156,6 +156,7 @@ export default function TimeTable({
                     <div
                       key={`${i}-${el?.id}`}
                       draggable="true"
+                      tabIndex="0"
                       onDragStart={(e) => handleDragStart(e, el?.id)}
                       style={{
                         ...taskDuration,
@@ -163,6 +164,7 @@ export default function TimeTable({
                         opacity:
                           taskDurationElDraggedId === el?.id ? '0.5' : '1',
                       }}
+                      onKeyDown={(e) => deleteTaskDuration(e, task?.id)}
                     ></div>
                   );
                 }
@@ -226,6 +228,17 @@ export default function TimeTable({
 
   function handleDragStart(e, taskDurationIid) {
     setTaskDurationElDraggedId(taskDurationIid);
+  }
+
+  function deleteTaskDuration(e, id) {
+    if (e.key === 'Delete' || e.key === 'Backspace') {
+      // update taskDurations
+      const newTaskDurations = taskDurations.filter(
+        (taskDuration) => taskDuration.task !== id
+      );
+      // update state (if data on backend - make API request to update data)
+      setTaskDurations(newTaskDurations);
+    }
   }
 
   return (

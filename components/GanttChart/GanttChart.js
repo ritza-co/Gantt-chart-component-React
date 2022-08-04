@@ -18,7 +18,7 @@ export default function GanttChart() {
     toSelectYear: '2022',
   });
 
-  console.log('Gannt Chart render');
+  // console.log('Gannt Chart render', { tasks }, { taskDurations });
   useEffect(() => {
     client('data.json').then(
       (data) => {
