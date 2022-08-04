@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddTaskDuration from './AddTaskDuration';
 import AddTask from './AddTask';
 import Grid from './Grid';
@@ -6,14 +6,27 @@ import Settings from './Settings';
 import Tasks from './Tasks';
 import TimeRange from './TimeRange';
 import TimeTable from './TimeTable';
+import { client } from '../../utils/fetchWrapper';
 
 export default function GanttChart() {
+  const [data, setData] = useState(null);
   const [timeRange, setTimeRange] = useState({
     fromSelectMonth: 0,
     fromSelectYear: '2022',
-    toSelectYear: 1,
-    fromSelectYear: '2022',
+    toSelectMonth: 1,
+    toSelectYear: '2022',
   });
+
+  useEffect(() => {
+    client('data.json').then(
+      (data) => {
+        setData(data);
+      },
+      (error) => {
+        console.error('Error: ', error);
+      }
+    );
+  }, []);
 
   return (
     <div id="gantt-container">

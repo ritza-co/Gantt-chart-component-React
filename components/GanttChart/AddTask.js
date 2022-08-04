@@ -28,16 +28,16 @@ export default function AddTask() {
           font-size: 1.5rem;
         }
 
-        form {
+        /* form {
           display: grid;
-          grid-template-rows: repeat(4, 1fr);
+          grid-template-rows: repeat(3, 1fr);
           align-items: center;
-        }
+        } */
 
         form > * {
           display: flex;
           align-items: center;
-          margin: 0.3rem;
+          margin: 1rem 0.3rem;
         }
 
         input {
@@ -45,6 +45,8 @@ export default function AddTask() {
         }
 
         button {
+          width: 70px;
+          height: 50px;
           color: white;
           background: var(--color-secondary);
           font-weight: 600;

@@ -74,21 +74,16 @@ export default function AddTaskDuration() {
           font-size: 1.5rem;
         }
 
-        form {
+        /* form {
           display: grid;
           grid-template-rows: repeat(4, 1fr);
           align-items: center;
-        }
+        } */
 
         form > * {
           display: flex;
           align-items: center;
-          margin: 0.3rem;
-        }
-
-        form button {
-          width: 70px;
-          height: 50px;
+          margin: 1rem 0.3rem;
         }
 
         fieldset {
@@ -111,6 +106,8 @@ export default function AddTaskDuration() {
         }
 
         button {
+          width: 70px;
+          height: 50px;
           color: white;
           background: var(--color-secondary);
           font-weight: 600;

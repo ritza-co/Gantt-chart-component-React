@@ -87,6 +87,19 @@ export default function TimeRange({ timeRange, setTimeRange }) {
         </select>
       </fieldset>
       <style jsx>{`
+        #time-range {
+          margin-right: 10px;
+          margin-bottom: 10px;
+          border-radius: 5px;
+          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        #time-range > * {
+          display: flex;
+          align-items: center;
+          margin: 0.3rem;
+        }
+
         fieldset {
           border: none;
           padding: 0.5rem;
