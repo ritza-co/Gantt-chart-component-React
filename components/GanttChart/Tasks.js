@@ -6,14 +6,14 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
     let newTasks = tasks.filter((task) => task.id !== idNum);
     newTasks.push({ id: idNum, name: value });
     newTasks = newTasks.sort((a, b) => a.id - b.id);
-    // update original / make API request to update data on backend
+    // update state (if data on backend - make API request to update data)
     setTasks(newTasks);
   }
 
   function handleDelete(e) {
     const idNum = parseInt(e.target.getAttribute('data-task-id'));
     const newTasks = tasks.filter((task) => task.id !== idNum);
-    // update original / make API request to update data on backend
+    // update state (if data on backend - make API request to update data)
     setTasks(newTasks);
 
     setTaskDurations((prevState) => {
