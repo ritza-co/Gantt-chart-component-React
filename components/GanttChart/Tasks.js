@@ -1,8 +1,15 @@
+import { useEffect, useRef } from 'react';
+
 export default function Tasks({ tasks, setTasks, setTaskDurations }) {
+  const inputRef = useRef([]);
+  const indexRef = useRef(null);
+
+  console.log(inputRef.current, indexRef.current);
   console.log('Tasks render ', { tasks });
-  function onChange(e) {
+  function onChange(e, i) {
     const { value } = e.target;
     const idNum = parseInt(e.target.getAttribute('data-task-id'));
+    indexRef.current = i;
 
     let newTasks = tasks.filter((task) => task.id !== idNum);
     newTasks.push({ id: idNum, name: value });
@@ -26,6 +33,12 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
     });
   }
 
+  useEffect(() => {
+    if (inputRef.current.length && indexRef.current >= 0) {
+      inputRef?.current[indexRef.current]?.focus();
+    }
+  });
+
   return (
     <div id="gantt-grid-container__tasks">
       <div className="gantt-task-row"></div>
@@ -37,7 +50,8 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
             <input
               data-task-id={tsk?.id}
               value={tsk?.name}
-              onChange={onChange}
+              onChange={(e) => onChange(e, i)}
+              ref={(el) => (inputRef.current[i] = el)}
             />
             <button type="button" data-task-id={tsk?.id} onClick={handleDelete}>
               ✕

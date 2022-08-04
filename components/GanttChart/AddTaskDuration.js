@@ -21,6 +21,31 @@ export default function AddTaskDuration({ tasks }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const task = parseInt(e.target.elements['select-task'].value);
+    const start = e.target.elements['start-date'].value;
+    const end = e.target.elements['end-date'].value;
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    console.logg(start, end, task);
+    // const timeStamp = Date.now();
+    // const taskDuration = {
+    //   id: `${timeStamp}`,
+    //   start: startDate,
+    //   end: endDate,
+    //   task: task,
+    // };
+
+    // // add task duration
+    // taskDurations.push(taskDuration);
+    // // find gantt-time-period-cell start position
+    // const startCell = containerTimePeriods.querySelector(
+    //   `div[data-task="${taskDuration.task}"][data-date="${start}"]`
+    // );
+
+    // if (startCell) {
+    //   // taskDuration bar is a child of start date position of specific task
+    //   createTaskDurationEl(taskDuration, startCell);
+    // }
   }
 
   return (
