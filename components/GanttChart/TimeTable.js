@@ -1,7 +1,84 @@
-export default function TimeTable() {
+import { monthDiff, getDaysInMonth } from '../../utils/dateFunctions';
+import { months } from '../../constants';
+
+export default function TimeTable({ timeRange, tasks, taskDurations }) {
+  // dynamic css styling at run time.
+  const ganttTimePeriod = {
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridAutoColumns: 'minmax(30px, 1fr)',
+    outline: '1px solid var(--color-outline)',
+    textAlign: 'center',
+    height: 'var(--cell-height)',
+  };
+
+  const ganntTimePeriodSpan = {
+    margin: 'auto',
+  };
+
+  // creating rows
+  const startMonth = new Date(
+    parseInt(timeRange.fromSelectYear),
+    timeRange.fromSelectMonth
+  );
+  const endMonth = new Date(
+    parseInt(timeRange.toSelectYear),
+    timeRange.toSelectMonth
+  );
+  const numMonths = monthDiff(startMonth, endMonth) + 1;
+  let month = new Date(startMonth);
+
+  let monthRows = [];
+  let dayRows = [];
+  let dayRow = [];
+
+  for (let i = 0; i < numMonths; i++) {
+    // month rows
+    monthRows.push(
+      <div key={i} style={ganttTimePeriod}>
+        <span style={ganntTimePeriodSpan}>
+          {months[month.getMonth()] + ' ' + month.getFullYear()}
+        </span>
+      </div>
+    );
+
+    // day rows
+    const numDays = getDaysInMonth(month.getFullYear(), month.getMonth() + 1);
+    for (let i = 1; i <= numDays; i++) {
+      dayRow.push(
+        <div
+          key={i}
+          style={{
+            display: 'grid',
+            gridAutoFlow: 'column',
+            gridAutoColumns: 'minmax(30px, 1fr)',
+            outline: '1px solid var(--color-outline)',
+            textAlign: 'center',
+            height: 'var(--cell-height)',
+          }}
+        >
+          <span>{i}</span>
+        </div>
+      );
+    }
+    dayRows.push(
+      <div key={i} style={ganttTimePeriod}>
+        {dayRow}
+      </div>
+    );
+
+    dayRow = [];
+
+    month.setMonth(month.getMonth() + 1);
+  }
+
   return (
-    <div id="gantt-grid-container__time">
-      Time Table
+    <div
+      id="gantt-grid-container__time"
+      style={{ gridTemplateColumns: `repeat(${numMonths}, 1fr)` }}
+    >
+      {monthRows}
+      {dayRows}
       <style jsx>{`
         #gantt-grid-container__time {
           display: grid;
@@ -9,14 +86,14 @@ export default function TimeTable() {
           outline: 1px solid var(--color-outline);
         }
 
-        .gantt-time-period {
+        /* .gantt-time-period {
           display: grid;
           grid-auto-flow: column;
           grid-auto-columns: minmax(30px, 1fr);
           outline: 1px solid var(--color-outline);
           text-align: center;
           height: var(--cell-height);
-        }
+        } */
 
         .gantt-time-period span {
           margin: auto;

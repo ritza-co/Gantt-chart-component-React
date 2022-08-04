@@ -40,7 +40,7 @@ export default function TimeRange({ timeRange, setTimeRange }) {
     }
     if (id === 'to-select-year') {
       setTimeRange((prevState) => {
-        return { ...prevState, toSelectMonth: value };
+        return { ...prevState, toSelectYear: value };
       });
     }
   }
