@@ -2,6 +2,7 @@ import {
   monthDiff,
   getDaysInMonth,
   getDayOfWeek,
+  createFormattedDateFromStr,
 } from '../../utils/dateFunctions';
 import { months } from '../../constants';
 
@@ -16,8 +17,13 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
     height: 'var(--cell-height)',
   };
 
-  const ganntTimePeriodSpan = {
+  const ganttTimePeriodSpan = {
     margin: 'auto',
+  };
+
+  const ganttTimePeriodCell = {
+    position: 'relative',
+    outline: '1px solid var(--color-outline)',
   };
 
   // creating rows
@@ -37,55 +43,40 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
   let dayRow = [];
   let weekRows = [];
   let weekRow = [];
+  let taskRows = [];
+  let taskRow = [];
 
   for (let i = 0; i < numMonths; i++) {
-    // month rows
+    // create month rows
     monthRows.push(
       <div key={i} style={ganttTimePeriod}>
-        <span style={ganntTimePeriodSpan}>
+        <span style={ganttTimePeriodSpan}>
           {months[month.getMonth()] + ' ' + month.getFullYear()}
         </span>
       </div>
     );
 
-    // add day rows and week rows
+    // create day and week rows
     const numDays = getDaysInMonth(month.getFullYear(), month.getMonth() + 1);
     const currYear = month.getFullYear();
     const currMonth = month.getMonth() + 1;
 
-    for (let i = 1; i <= numDays; i++) {
+    for (let j = 1; j <= numDays; j++) {
       dayRow.push(
-        <div
-          key={i}
-          style={{
-            display: 'grid',
-            gridAutoFlow: 'column',
-            gridAutoColumns: 'minmax(30px, 1fr)',
-            outline: '1px solid var(--color-outline)',
-            textAlign: 'center',
-            height: 'var(--cell-height)',
-          }}
-        >
-          <span>{i}</span>
+        <div key={j} style={ganttTimePeriod}>
+          <span style={ganttTimePeriodSpan}>{j}</span>
         </div>
       );
 
       weekRow.push(
-        <div
-          key={i}
-          style={{
-            display: 'grid',
-            gridAutoFlow: 'column',
-            gridAutoColumns: 'minmax(30px, 1fr)',
-            outline: '1px solid var(--color-outline)',
-            textAlign: 'center',
-            height: 'var(--cell-height)',
-          }}
-        >
-          <span>{getDayOfWeek(currYear, currMonth - 1, i - 1)}</span>
+        <div key={j} style={ganttTimePeriod}>
+          <span style={ganttTimePeriodSpan}>
+            {getDayOfWeek(currYear, currMonth - 1, j - 1)}
+          </span>
         </div>
       );
     }
+
     dayRows.push(
       <div key={i} style={ganttTimePeriod}>
         {dayRow}
@@ -100,8 +91,53 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
 
     dayRow = [];
     weekRow = [];
-
     month.setMonth(month.getMonth() + 1);
+  }
+
+  // create task rows
+  if (tasks) {
+    tasks.forEach((task) => {
+      let mnth = new Date(startMonth);
+      for (let i = 0; i < numMonths; i++) {
+        const curYear = mnth.getFullYear();
+        const curMonth = mnth.getMonth() + 1;
+
+        const numDays = getDaysInMonth(curYear, curMonth);
+
+        for (let j = 1; j <= numDays; j++) {
+          // color weekend cells differently
+          const dayOfTheWeek = getDayOfWeek(curYear, curMonth - 1, j - 1);
+          // add task and date data attributes
+          const formattedDate = createFormattedDateFromStr(
+            curYear,
+            curMonth,
+            j
+          );
+
+          taskRow.push(
+            <div
+              key={`${j}-${task?.id}`}
+              style={{
+                ...ganttTimePeriodCell,
+                backgroundColor:
+                  dayOfTheWeek === 'S' ? 'var(--color-tertiary)' : '#fff',
+              }}
+              data-task={task?.id}
+              data-date={formattedDate}
+            ></div>
+          );
+        }
+
+        taskRows.push(
+          <div key={`${i}-${task?.id}`} style={ganttTimePeriod}>
+            {taskRow}
+          </div>
+        );
+
+        taskRow = [];
+        mnth.setMonth(mnth.getMonth() + 1);
+      }
+    });
   }
 
   return (
@@ -112,33 +148,20 @@ export default function TimeTable({ timeRange, tasks, taskDurations }) {
       {monthRows}
       {dayRows}
       {weekRows}
+      <div
+        id="gantt-time-period-cell-container"
+        style={{
+          gridColumn: '1/-1',
+          display: 'grid',
+          gridTemplateColumns: `repeat(${numMonths}, 1fr)`,
+        }}
+      >
+        {taskRows}
+      </div>
       <style jsx>{`
         #gantt-grid-container__time {
           display: grid;
           overflow-x: auto;
-          outline: 1px solid var(--color-outline);
-        }
-
-        /* .gantt-time-period {
-          display: grid;
-          grid-auto-flow: column;
-          grid-auto-columns: minmax(30px, 1fr);
-          outline: 1px solid var(--color-outline);
-          text-align: center;
-          height: var(--cell-height);
-        } */
-
-        /* .gantt-time-period span {
-          margin: auto;
-        } */
-
-        .gantt-time-period-cell-container {
-          grid-column: 1/-1;
-          display: grid;
-        }
-
-        .gantt-time-period-cell {
-          position: relative;
           outline: 1px solid var(--color-outline);
         }
 
