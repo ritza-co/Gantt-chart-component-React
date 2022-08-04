@@ -18,7 +18,7 @@ export default function TimeTable({
   const [taskDurationElDraggedId, setTaskDurationElDraggedId] = useState(null);
   const [taskDurationElDraggedTask, setTaskDurationElDraggedTask] =
     useState(null);
-  console.log('TimeTable render');
+
   // for dynamic css styling
   const ganttTimePeriod = {
     display: 'grid',
@@ -140,7 +140,7 @@ export default function TimeTable({
 
           taskRow.push(
             <div
-              key={j}
+              key={`${task.id}-${j}`}
               style={{
                 ...ganttTimePeriodCell,
                 backgroundColor:
@@ -194,7 +194,6 @@ export default function TimeTable({
 
       const dataTask = targetCell.getAttribute('data-task');
       const dataDate = targetCell.getAttribute('data-date');
-      console.log({ dataTask }, { dataDate });
 
       // // remove old position from DOM
       // taskDurationElDraggedId.remove();
@@ -218,8 +217,6 @@ export default function TimeTable({
         (taskDuration) => taskDuration.id !== taskDurationElDraggedId
       );
       newTaskDurations.push(taskDuration);
-
-      console.log(newTaskDurations);
 
       // update state (if data on backend - make API request to update data)
       setTaskDurations(newTaskDurations);

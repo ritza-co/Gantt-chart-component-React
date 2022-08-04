@@ -1,4 +1,5 @@
 export default function Tasks({ tasks, setTasks, setTaskDurations }) {
+  console.log('Tasks render ', { tasks });
   function onChange(e) {
     const { value } = e.target;
     const idNum = parseInt(e.target.getAttribute('data-task-id'));
@@ -31,8 +32,8 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
       <div className="gantt-task-row"></div>
       <div className="gantt-task-row"></div>
       {tasks &&
-        tasks.map((tsk) => (
-          <div key={tsk?.id} className="gantt-task-row">
+        tasks.map((tsk, i) => (
+          <div key={`${i}-${tsk?.id}-${tsk.name}`} className="gantt-task-row">
             <input
               data-task-id={tsk?.id}
               value={tsk?.name}

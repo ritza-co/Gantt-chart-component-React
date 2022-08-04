@@ -18,6 +18,7 @@ export default function GanttChart() {
     toSelectYear: '2022',
   });
 
+  console.log('Gannt Chart render');
   useEffect(() => {
     client('data.json').then(
       (data) => {
@@ -46,7 +47,7 @@ export default function GanttChart() {
         />
       </Grid>
       <Settings>
-        <AddTask />
+        <AddTask setTasks={setTasks} />
         <AddTaskDuration tasks={tasks} />
         <TimeRange timeRange={timeRange} setTimeRange={setTimeRange} />
       </Settings>

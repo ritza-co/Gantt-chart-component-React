@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function AddTask() {
+export default function AddTask({ setTasks }) {
   const [task, setTask] = useState('');
 
   function onChange(e) {
@@ -9,6 +9,21 @@ export default function AddTask() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const newTaskName = e.target.elements[0].value;
+
+    setTasks((prevState) => {
+      const newState = prevState;
+      // find largest task number, add 1 for new task - else could end up with tasks with same id
+      const maxIdVal = prevState.reduce(function (a, b) {
+        return Math.max(a, b.id);
+      }, -Infinity);
+
+      // create new task
+      newState.push({ id: maxIdVal + 1, name: newTaskName });
+
+      return [...newState];
+    });
+    setTask('');
   }
 
   return (
@@ -27,12 +42,6 @@ export default function AddTask() {
         h2 {
           font-size: 1.5rem;
         }
-
-        /* form {
-          display: grid;
-          grid-template-rows: repeat(3, 1fr);
-          align-items: center;
-        } */
 
         form > * {
           display: flex;
