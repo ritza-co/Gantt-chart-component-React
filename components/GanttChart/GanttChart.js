@@ -33,7 +33,11 @@ export default function GanttChart() {
   return (
     <div id="gantt-container">
       <Grid>
-        <Tasks tasks={tasks} setTasks={setTasks} />
+        <Tasks
+          tasks={tasks}
+          setTasks={setTasks}
+          setTaskDurations={setTaskDurations}
+        />
         <TimeTable />
       </Grid>
       <Settings>

@@ -1,13 +1,28 @@
-export default function Tasks({ tasks, setTasks }) {
+export default function Tasks({ tasks, setTasks, setTaskDurations }) {
   function onChange(e) {
-    const { id, value } = e.target;
-    const idNum = parseInt(id);
+    const { value } = e.target;
+    const idNum = parseInt(e.target.getAttribute('data-task-id'));
 
     let newTasks = tasks.filter((task) => task.id !== idNum);
     newTasks.push({ id: idNum, name: value });
     newTasks = newTasks.sort((a, b) => a.id - b.id);
     // update original / make API request to update data on backend
     setTasks(newTasks);
+  }
+
+  function handleDelete(e) {
+    const idNum = parseInt(e.target.getAttribute('data-task-id'));
+    const newTasks = tasks.filter((task) => task.id !== idNum);
+    // update original / make API request to update data on backend
+    setTasks(newTasks);
+
+    setTaskDurations((prevState) => {
+      // delete any taskDurations associated with the task
+      const newTaskDurations = prevState.filter(
+        (taskDuration) => taskDuration.task !== idNum
+      );
+      return newTaskDurations;
+    });
   }
 
   return (
@@ -18,8 +33,14 @@ export default function Tasks({ tasks, setTasks }) {
       {tasks &&
         tasks.map((tsk) => (
           <div key={tsk?.id} className="gantt-task-row">
-            <input id={tsk?.id} value={tsk?.name} onChange={onChange} />
-            <button type="button">✕</button>
+            <input
+              data-task-id={tsk?.id}
+              value={tsk?.name}
+              onChange={onChange}
+            />
+            <button type="button" data-task-id={tsk?.id} onClick={handleDelete}>
+              ✕
+            </button>
           </div>
         ))}
       <style jsx>{`
@@ -33,8 +54,6 @@ export default function Tasks({ tasks, setTasks }) {
           outline: 1px solid var(--color-outline);
           text-align: center;
           height: var(--cell-height);
-          /* expand across whole grid */
-          /* grid-column: 1/-1; */
           border: none;
         }
 
