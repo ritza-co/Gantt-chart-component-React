@@ -162,7 +162,7 @@ export default function TimeTable({
                         opacity:
                           taskDurationElDraggedId === el?.id ? '0.5' : '1',
                       }}
-                      onKeyDown={(e) => deleteTaskDuration(e, task?.id)}
+                      onKeyDown={(e) => deleteTaskDuration(e, el?.id)}
                     ></div>
                   );
                 }
@@ -195,10 +195,6 @@ export default function TimeTable({
       const dataTask = targetCell.getAttribute('data-task');
       const dataDate = targetCell.getAttribute('data-date');
 
-      // // remove old position from DOM
-      // taskDurationElDraggedId.remove();
-      // // add new position to DOM
-      // const daysDuration = createTaskDurationEl(taskDuration, targetCell);
       const daysDuration = dayDiff(taskDuration.start, taskDuration.end);
 
       // get new task values
@@ -232,7 +228,7 @@ export default function TimeTable({
     if (e.key === 'Delete' || e.key === 'Backspace') {
       // update taskDurations
       const newTaskDurations = taskDurations.filter(
-        (taskDuration) => taskDuration.task !== id
+        (taskDuration) => taskDuration.id !== id
       );
       // update state (if data on backend - make API request to update data)
       setTaskDurations(newTaskDurations);
