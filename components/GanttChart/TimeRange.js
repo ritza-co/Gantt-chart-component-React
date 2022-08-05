@@ -46,58 +46,72 @@ export default function TimeRange({ timeRange, setTimeRange }) {
   }
 
   return (
-    <div id="time-range">
-      <fieldset id="select-from">
-        <legend>From</legend>
-        <select
-          id="from-select-month"
-          name="from-select-month"
-          value={timeRange.fromSelectMonth}
-          onChange={onChange}
-        >
-          {monthsOptions}
-        </select>
-        <select
-          id="from-select-year"
-          name="from-select-year"
-          value={timeRange.fromSelectYear}
-          onChange={onChange}
-        >
-          {yearsOptions}
-        </select>
-      </fieldset>
+    <div id="time-range__container">
+      <h2>Tracker Period</h2>
+      <div id="time-range">
+        <fieldset id="select-from">
+          <legend>From</legend>
+          <select
+            id="from-select-month"
+            name="from-select-month"
+            value={timeRange.fromSelectMonth}
+            onChange={onChange}
+          >
+            {monthsOptions}
+          </select>
+          <select
+            id="from-select-year"
+            name="from-select-year"
+            value={timeRange.fromSelectYear}
+            onChange={onChange}
+          >
+            {yearsOptions}
+          </select>
+        </fieldset>
 
-      <fieldset id="select-to">
-        <legend>To</legend>
-        <select
-          id="to-select-month"
-          name="to-select-month"
-          value={timeRange.toSelectMonth}
-          onChange={onChange}
-        >
-          {monthsOptions}
-        </select>
-        <select
-          id="to-select-year"
-          name="to-select-year"
-          value={timeRange.toSelectYear}
-          onChange={onChange}
-        >
-          {yearsOptions}
-        </select>
-      </fieldset>
+        <fieldset id="select-to">
+          <legend>To</legend>
+          <select
+            id="to-select-month"
+            name="to-select-month"
+            value={timeRange.toSelectMonth}
+            onChange={onChange}
+          >
+            {monthsOptions}
+          </select>
+          <select
+            id="to-select-year"
+            name="to-select-year"
+            value={timeRange.toSelectYear}
+            onChange={onChange}
+          >
+            {yearsOptions}
+          </select>
+        </fieldset>
+      </div>
       <style jsx>{`
-        #time-range {
+        #time-range__container {
           margin-right: 10px;
           margin-bottom: 10px;
+          padding: 1rem;
           border-radius: 5px;
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
         }
 
-        #time-range > * {
+        #time-range__container > * {
           display: flex;
           align-items: center;
-          margin: 0.3rem;
+        }
+
+        #time-range {
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          margin: 0.5rem 0;
+        }
+
+        h2 {
+          font-size: 1.5rem;
         }
 
         fieldset {
@@ -110,9 +124,14 @@ export default function TimeRange({ timeRange, setTimeRange }) {
         }
 
         select {
-          font-size: 1.2rem;
-          padding: 0.2rem 0.2rem;
-          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
+          padding: 5px 7px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 13px;
         }
       `}</style>
     </div>

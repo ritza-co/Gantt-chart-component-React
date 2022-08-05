@@ -42,45 +42,51 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
 
   return (
     <form id="add-task-duration" onSubmit={handleSubmit}>
-      <h2>Add task duration</h2>
-      <fieldset id="task">
-        <label htmlFor="select-task">Which task?</label>
-        <select
-          id="select-task"
-          name="select-task"
-          onChange={onChange}
-          value={task}
-        >
-          {tasks &&
-            tasks.map((tsk) => (
-              <option key={tsk?.id} value={tsk?.id}>
-                {tsk?.name}
-              </option>
-            ))}
-        </select>
-      </fieldset>
-      <fieldset id="date">
-        <label htmlFor="start-date">Start date:</label>
-        <input
-          type="date"
-          id="start-date"
-          name="start-date"
-          value={startDate}
-          min="2022-01-01"
-          max="2050-12-31"
-          onChange={onChange}
-        />
-        <label htmlFor="end-date">End date:</label>
-        <input
-          type="date"
-          id="end-date"
-          name="end-date"
-          value={endDate}
-          min="2022-01-01"
-          max="2050-12-31"
-          onChange={onChange}
-        />
-      </fieldset>
+      <h2>Add Task Duration</h2>
+      <div className="inner-form-container">
+        <fieldset id="task">
+          <label htmlFor="select-task">Which task?</label>
+          <select
+            id="select-task"
+            name="select-task"
+            onChange={onChange}
+            value={task}
+          >
+            {tasks &&
+              tasks.map((tsk) => (
+                <option key={tsk?.id} value={tsk?.id}>
+                  {tsk?.name}
+                </option>
+              ))}
+          </select>
+        </fieldset>
+        <fieldset id="date">
+          <div className="fieldset-container">
+            <label htmlFor="start-date">Start date:</label>
+            <input
+              type="date"
+              id="start-date"
+              name="start-date"
+              value={startDate}
+              min="2022-01-01"
+              max="2050-12-31"
+              onChange={onChange}
+            />
+          </div>
+          <div className="fieldset-container" style={{ marginLeft: '10px' }}>
+            <label htmlFor="end-date">End date:</label>
+            <input
+              type="date"
+              id="end-date"
+              name="end-date"
+              value={endDate}
+              min="2022-01-01"
+              max="2050-12-31"
+              onChange={onChange}
+            />
+          </div>
+        </fieldset>
+      </div>
       <button type="submit">Add</button>
       <style jsx>{`
         #add-task-duration {
@@ -90,55 +96,68 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
         }
 
-        #date > label:nth-child(3) {
-          margin-left: 10px;
-        }
-
         h2 {
           font-size: 1.5rem;
         }
 
-        /* form {
-          display: grid;
-          grid-template-rows: repeat(4, 1fr);
-          align-items: center;
-        } */
+        form {
+          padding: 1rem;
+        }
 
         form > * {
           display: flex;
           align-items: center;
-          margin: 1rem 0.3rem;
+          justify-content: center;
+        }
+
+        .fieldset-container {
+          display: flex;
+          align-items: center;
+
+          flex-direction: row;
+          flex-wrap: wrap;
         }
 
         fieldset {
+          display: flex;
+          align-items: center;
           border: none;
-          padding: 0.5rem;
         }
 
         fieldset label {
           margin-right: 10px;
         }
 
+        input[type='text'],
         select {
-          font-size: 1.2rem;
-          padding: 0.2rem 0.2rem;
-          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
+          font-family: 'Montserrat', sans-serif;
+          font-size: 13px;
+          padding: 5px 7px;
+          margin: 1rem 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
         }
 
-        input {
-          height: var(--cell-height);
+        input[type='date'] {
+          font-family: 'Montserrat', sans-serif;
+          padding: 10px 5px;
+          border: 1px solid #ededed;
+          border-radius: 5px;
+          transition: 0.2s ease-out;
         }
 
         button {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 13px;
+          justify-content: center;
           width: 70px;
           height: 50px;
           color: white;
           background: var(--color-secondary);
-          font-weight: 600;
           font-size: 1.1rem;
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
-          padding: 0.5rem 1rem;
-          margin: 0.5rem;
           border: 0;
           border-radius: 5px;
           transition: all 0.3s ease;

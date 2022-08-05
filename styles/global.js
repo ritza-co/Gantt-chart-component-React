@@ -8,12 +8,12 @@ export default css.global`
 
   html,
   body {
-    font-family: 'Noto Sans Display', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: #272a2e;
   }
 
-  h1 {
-    font-size: 1.5rem;
+  input {
+    font-family: 'Montserrat', sans-serif;
   }
 
   button {

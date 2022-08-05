@@ -21,8 +21,8 @@ export default function TimeTable({
   const ganttTimePeriod = {
     display: 'grid',
     gridAutoFlow: 'column',
-    gridAutoColumns: 'minmax(30px, 1fr)',
-    outline: '1px solid var(--color-outline)',
+    gridAutoColumns: 'minmax(35px, 1fr)',
+    outline: '0.5px solid var(--color-outline)',
     textAlign: 'center',
     height: 'var(--cell-height)',
   };
@@ -33,17 +33,16 @@ export default function TimeTable({
 
   const ganttTimePeriodCell = {
     position: 'relative',
-    outline: '1px solid var(--color-outline)',
+    outline: '0.5px solid var(--color-outline)',
   };
 
   const taskDuration = {
     position: 'absolute',
-    height: 'calc(var(--cell-height) / 3',
-    top: 'calc(var(--cell-height) / 3',
+    height: 'calc(var(--cell-height) - 0.5px)',
     zIndex: '1',
     background:
       'linear-gradient(90deg, var(--color-primary-light) 0%, var(--color-primary-dark) 100%)',
-    borderRadius: '2px',
+    borderRadius: 'var(--border-radius)',
     boxShadow: '3px 3px 3px rgba(0, 0, 0, 0.05)',
     cursor: 'move',
   };
@@ -71,7 +70,7 @@ export default function TimeTable({
   for (let i = 0; i < numMonths; i++) {
     // create month rows
     monthRows.push(
-      <div key={i} style={ganttTimePeriod}>
+      <div key={i} style={{ ...ganttTimePeriod, outline: 'none' }}>
         <span style={ganttTimePeriodSpan}>
           {months[month.getMonth()] + ' ' + month.getFullYear()}
         </span>
@@ -85,13 +84,13 @@ export default function TimeTable({
 
     for (let j = 1; j <= numDays; j++) {
       dayRow.push(
-        <div key={j} style={ganttTimePeriod}>
+        <div key={j} style={{ ...ganttTimePeriod, outline: 'none' }}>
           <span style={ganttTimePeriodSpan}>{j}</span>
         </div>
       );
 
       weekRow.push(
-        <div key={j} style={ganttTimePeriod}>
+        <div key={j} style={{ ...ganttTimePeriod, outline: 'none' }}>
           <span style={ganttTimePeriodSpan}>
             {getDayOfWeek(currYear, currMonth - 1, j - 1)}
           </span>
@@ -100,13 +99,13 @@ export default function TimeTable({
     }
 
     dayRows.push(
-      <div key={i} style={ganttTimePeriod}>
+      <div key={i} style={{ ...ganttTimePeriod, outline: 'none' }}>
         {dayRow}
       </div>
     );
 
     weekRows.push(
-      <div key={i} style={ganttTimePeriod}>
+      <div key={i} style={{ ...ganttTimePeriod, outline: 'none' }}>
         {weekRow}
       </div>
     );
@@ -143,6 +142,7 @@ export default function TimeTable({
                 ...ganttTimePeriodCell,
                 backgroundColor:
                   dayOfTheWeek === 'S' ? 'var(--color-tertiary)' : '#fff',
+                margin: '0.25px',
               }}
               data-task={task?.id}
               data-date={formattedDate}
@@ -262,7 +262,7 @@ export default function TimeTable({
         #gantt-grid-container__time {
           display: grid;
           overflow-x: auto;
-          outline: 1px solid var(--color-outline);
+          outline: 0.5px solid var(--color-outline);
         }
 
         .taskDuration {

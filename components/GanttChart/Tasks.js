@@ -58,13 +58,12 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
         ))}
       <style jsx>{`
         #gantt-grid-container__tasks {
-          outline: 1px solid var(--color-outline);
+          outline: 0.5px solid var(--color-outline);
         }
 
         .gantt-task-row {
           display: flex;
-          padding: 2px 0;
-          outline: 1px solid var(--color-outline);
+          outline: 0.5px solid var(--color-outline);
           text-align: center;
           height: var(--cell-height);
           border: none;
@@ -78,6 +77,7 @@ export default function Tasks({ tasks, setTasks, setTaskDurations }) {
         }
 
         button {
+          line-height: 0px;
           color: var(--color-orange);
           background: none;
           border-radius: 5px;

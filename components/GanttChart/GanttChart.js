@@ -64,23 +64,6 @@ export default function GanttChart() {
           --cell-height: 40px;
           padding: 1rem;
         }
-
-        input {
-          font-family: 'Noto Sans Display', sans-serif;
-          height: 100%;
-          padding: 10px 5px;
-          border: 1px solid var(--color-tertiary);
-          border-radius: var(--border-radius);
-          transition: 0.2s ease-out;
-        }
-
-        input:focus {
-          outline-color: var(--color-primary-dark);
-        }
-
-        button:hover {
-          cursor: pointer;
-        }
       `}</style>
     </div>
   );

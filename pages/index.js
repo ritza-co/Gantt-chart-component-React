@@ -25,9 +25,7 @@ export default function Home() {
         }
 
         .title {
-          margin: 0 0 1rem 0;
-          line-height: 1.15;
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
       `}</style>
     </div>
