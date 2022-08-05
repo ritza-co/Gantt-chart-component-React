@@ -19,7 +19,10 @@ export default function AddTask({ setTasks }) {
       }, -Infinity);
 
       // create new task
-      newState.push({ id: maxIdVal + 1, name: newTaskName });
+      newState.push({
+        id: isFinite(maxIdVal) ? maxIdVal + 1 : 1,
+        name: newTaskName,
+      });
 
       return [...newState];
     });
