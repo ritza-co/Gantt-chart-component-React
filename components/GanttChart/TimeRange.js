@@ -49,7 +49,7 @@ export default function TimeRange({ timeRange, setTimeRange }) {
     <div id="time-range__container">
       <h2>Tracker Period</h2>
       <div id="time-range">
-        <fieldset id="select-from">
+        <fieldset id="select-from" style={{ paddingLeft: '0px' }}>
           <legend>From</legend>
           <select
             id="from-select-month"
@@ -64,6 +64,7 @@ export default function TimeRange({ timeRange, setTimeRange }) {
             name="from-select-year"
             value={timeRange.fromSelectYear}
             onChange={onChange}
+            style={{ marginLeft: '5px' }}
           >
             {yearsOptions}
           </select>
@@ -84,6 +85,7 @@ export default function TimeRange({ timeRange, setTimeRange }) {
             name="to-select-year"
             value={timeRange.toSelectYear}
             onChange={onChange}
+            style={{ marginLeft: '5px' }}
           >
             {yearsOptions}
           </select>

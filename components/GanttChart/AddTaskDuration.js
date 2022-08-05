@@ -44,7 +44,7 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
     <form id="add-task-duration" onSubmit={handleSubmit}>
       <h2>Add Task Duration</h2>
       <div className="inner-form-container">
-        <fieldset id="task">
+        <fieldset id="task" style={{ paddingLeft: '0px' }}>
           <label htmlFor="select-task">Which task?</label>
           <select
             id="select-task"
@@ -107,7 +107,6 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
         form > * {
           display: flex;
           align-items: center;
-          justify-content: center;
         }
 
         .fieldset-container {
