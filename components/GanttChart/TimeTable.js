@@ -7,7 +7,7 @@ import {
   createFormattedDateFromDate,
   dayDiff,
 } from './dateFunctions';
-import { months } from '../../constants';
+import { months } from './constants';
 
 export default function TimeTable({
   timeRange,
