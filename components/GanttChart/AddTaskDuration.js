@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AddButton from './AddButton';
 
 export default function AddTaskDuration({ tasks, setTaskDurations }) {
   const [task, setTask] = useState('');
@@ -24,8 +25,6 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
     const task = parseInt(e.target.elements['select-task'].value);
     const start = e.target.elements['start-date'].value;
     const end = e.target.elements['end-date'].value;
-    // const startDate = new Date(start);
-    // const endDate = new Date(end);
     const timeStamp = Date.now();
     const newTaskDuration = {
       id: timeStamp,
@@ -87,7 +86,7 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
           </div>
         </fieldset>
       </div>
-      <button type="submit">Add</button>
+      <AddButton />
       <style jsx>{`
         #add-task-duration {
           margin-right: 10px;
@@ -121,6 +120,7 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
           display: flex;
           align-items: center;
           border: none;
+          padding: 5px 7px;
         }
 
         fieldset label {
@@ -145,26 +145,6 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
           border: 1px solid #ededed;
           border-radius: 5px;
           transition: 0.2s ease-out;
-        }
-
-        button {
-          font-family: 'Montserrat', sans-serif;
-          font-size: 13px;
-          justify-content: center;
-          width: 70px;
-          height: 50px;
-          color: white;
-          background: var(--color-secondary);
-          font-size: 1.1rem;
-          box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.05);
-          border: 0;
-          border-radius: 5px;
-          transition: all 0.3s ease;
-        }
-
-        button:hover,
-        button:focus {
-          opacity: 0.85;
         }
       `}</style>
     </form>
