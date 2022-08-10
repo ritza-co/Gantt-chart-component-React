@@ -155,7 +155,7 @@ export default function TimeTable({
                       key={`${i}-${el?.id}`}
                       draggable="true"
                       tabIndex="0"
-                      onDragStart={(e) => handleDragStart(e, el?.id)}
+                      onDragStart={(e) => handleDragStart(el?.id)}
                       style={{
                         ...taskDuration,
                         width: `calc(${dayDiff(el?.start, el?.end)} * 100%)`,
@@ -220,7 +220,7 @@ export default function TimeTable({
     setTaskDurationElDraggedId(null);
   }
 
-  function handleDragStart(e, taskDurationIid) {
+  function handleDragStart(taskDurationIid) {
     setTaskDurationElDraggedId(taskDurationIid);
   }
 
