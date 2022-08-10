@@ -10,7 +10,6 @@ export default function AddTask({ setTasks }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const newTaskName = e.target.elements[0].value;
 
     setTasks((prevState) => {
       const newState = prevState;
@@ -22,7 +21,7 @@ export default function AddTask({ setTasks }) {
       // create new task
       newState.push({
         id: isFinite(maxIdVal) ? maxIdVal + 1 : 1,
-        name: newTaskName,
+        name: task,
       });
 
       return [...newState];

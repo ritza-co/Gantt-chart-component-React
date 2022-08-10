@@ -22,15 +22,13 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    const task = parseInt(e.target.elements['select-task'].value);
-    const start = e.target.elements['start-date'].value;
-    const end = e.target.elements['end-date'].value;
+    if (task === '') return;
     const timeStamp = Date.now();
     const newTaskDuration = {
       id: timeStamp,
-      start,
-      end,
-      task,
+      start: startDate,
+      end: endDate,
+      task: parseInt(task),
     };
 
     setTaskDurations((prevState) => {
@@ -51,6 +49,9 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
             onChange={onChange}
             value={task}
           >
+            <option disabled defaultValue value="">
+              select a task
+            </option>
             {tasks &&
               tasks.map((tsk) => (
                 <option key={tsk?.id} value={tsk?.id}>
