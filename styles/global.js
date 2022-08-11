@@ -8,12 +8,12 @@ export default css.global`
 
   html,
   body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Lato, 'Open Sans', Helvetica, Arial, sans-serif;
     color: #272a2e;
   }
 
   input {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Lato, 'Open Sans', Helvetica, Arial, sans-serif;
   }
 
   button {

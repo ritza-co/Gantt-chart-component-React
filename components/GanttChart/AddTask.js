@@ -63,7 +63,7 @@ export default function AddTask({ setTasks }) {
           border: 1px solid #ccc;
           border-radius: 4px;
           box-sizing: border-box;
-          font-family: 'Montserrat', sans-serif;
+          font-family: Lato, 'Open Sans', Helvetica, Arial, sans-serif;
           font-size: 13px;
         }
       `}</style>
