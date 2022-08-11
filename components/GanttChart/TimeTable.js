@@ -6,8 +6,8 @@ import {
   createFormattedDateFromStr,
   createFormattedDateFromDate,
   dayDiff,
-} from './dateFunctions';
-import { months } from './constants';
+} from '../../helpers/dateFunctions';
+import { months } from '../../constants';
 
 export default function TimeTable({
   timeRange,

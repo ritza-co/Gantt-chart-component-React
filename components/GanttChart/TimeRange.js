@@ -1,4 +1,4 @@
-import { months } from './constants';
+import { months } from '../../constants';
 
 export default function TimeRange({ timeRange, setTimeRange }) {
   // add date selector values
