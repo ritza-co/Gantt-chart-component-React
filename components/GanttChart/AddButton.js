@@ -4,7 +4,7 @@ export default function AddButton() {
       Add
       <style jsx>{`
         button {
-          font-family: Lato, 'Open Sans', Helvetica, Arial, sans-serif;
+          font-family: 'Montserrat', sans-serif;
           font-size: 13px;
           justify-content: center;
           width: 70px;
