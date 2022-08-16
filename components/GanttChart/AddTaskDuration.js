@@ -130,7 +130,7 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
 
         input[type='text'],
         select {
-          font-family: Lato, 'Open Sans', Helvetica, Arial, sans-serif;
+          font-family: 'Montserrat', sans-serif;
           font-size: 13px;
           padding: 5px 7px;
           margin: 1rem 0;
@@ -141,7 +141,7 @@ export default function AddTaskDuration({ tasks, setTaskDurations }) {
         }
 
         input[type='date'] {
-          font-family: Lato, 'Open Sans', Helvetica, Arial, sans-serif;
+          font-family: 'Montserrat', sans-serif;
           padding: 10px 5px;
           border: 1px solid #ededed;
           border-radius: 5px;
